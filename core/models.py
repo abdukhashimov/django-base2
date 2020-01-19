@@ -8,6 +8,7 @@ from django.contrib.auth.models import (
 
 class UserManager(BaseUserManager):
     """Manager for custom user model to support email instead of username"""
+
     def create_user(self, email, password=None, **extra_args):
         """Creates and save the user with email instead of username"""
         if not email:
@@ -17,7 +18,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
 
         return user
-    
+
     def create_superuser(self, email, password=None):
         """Creates and saves new superuser"""
         user = self.create_user(email=email, password=password)
@@ -25,8 +26,6 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
-
-
 
 
 class User(AbstractBaseUser, PermissionsMixin):

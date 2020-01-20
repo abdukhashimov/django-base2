@@ -20,6 +20,7 @@ class PublicServicesAPITests(TestCase):
             email='test@greatsoft.uz',
             password='password',
         )
+
     def test_login_is_not_required(self):
         res = self.client.get(SERIVICES_URL)
 
@@ -52,4 +53,33 @@ class PrivateServicesAPITests(TestCase):
             password='password',
         )
         self.client = APIClient()
-        self.client.force_authenticate(user)
+        self.client.force_authenticate(self.user)
+
+    def test_create_service_successful(self):
+        """Test creating service successful"""
+        payload = {
+            'name': 'new_service_name',
+            'title': 'it is an awesome service we can offer',
+            'body': 'this is the awesome body content that we can offer',
+        }
+        self.client.post(SERIVICES_URL, payload)
+
+        exists = Service.objects.filter(
+            user=self.user,
+            name=payload['name'],
+            title=payload['title'],
+            body=payload['body'],
+        ).exists()
+
+        self.assertTrue(exists)
+
+    def test_create_service_invalid(self):
+        """Test creating a new service creating with invalid payload"""
+        payload = {
+            'name':'',
+            'title':'',
+            'body':'',
+        }
+        res = self.client.post(SERIVICES_URL, payload)
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)

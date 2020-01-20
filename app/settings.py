@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     # custom
     'core.apps.CoreConfig',
+    'section.apps.SectionConfig',
 ]
 
 MIDDLEWARE = [

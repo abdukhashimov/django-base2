@@ -1,6 +1,14 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
+# importing custom models
+from core.models import Service
+
+
+def create_sample_user(email='test@greatsoft.uz', password='testpassword'):
+    """Creates a simple new user (for tests only)"""
+    return get_user_model().objects.create_user(email=email, password=password)
+
 
 class ModelTest(TestCase):
 
@@ -21,8 +29,8 @@ class ModelTest(TestCase):
         email = 'test@GREATSOFT.UZ'
         password = 'testpassword'
         user = get_user_model().objects.create_user(
-            email = email,
-            password = password
+            email=email,
+            password=password
         )
 
         self.assertEqual(user.email, email.lower())
@@ -39,8 +47,8 @@ class ModelTest(TestCase):
 
     def test_create_new_superuser(self):
         """Test creating a new superuser"""
-        email='test@greatsoft.uz'
-        password='testpassword'
+        email = 'test@greatsoft.uz'
+        password = 'testpassword'
         user = get_user_model().objects.create_superuser(
             email=email,
             password=password
@@ -48,3 +56,13 @@ class ModelTest(TestCase):
 
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
+
+    def test_service_str(self):
+        """Test that string representation of service works"""
+        service = Service.objects.create(
+            user=create_sample_user(),
+            name='Logo Design',
+            title='this is the service of logo design',
+            body = 'this is the body content of the logo design',
+        )
+        self.assertEqual(str(service), service.name)

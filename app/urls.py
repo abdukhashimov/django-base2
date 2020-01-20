@@ -18,11 +18,12 @@ from django.urls import path, include
 
 # docs import
 from rest_framework.documentation import include_docs_urls
+from rest_framework.permissions import AllowAny
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('user.urls')),
     path('api/section/', include('section.urls')),
-    path('docs/', include_docs_urls(title='Great Soft Uz'))
+    path('docs/', include_docs_urls(title='Great Soft Uz', permission_classes=[AllowAny, ]))
 ]

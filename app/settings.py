@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'gsoft2',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'NAME': 'db5muct9s5mv47',
+        'USER': 'xfwwimqcakcbkg',
+        'PASSWORD': '4ef2de64222aa787ecb238a8ec56c20894cca065857aa773ba2fb69a8c2a42c8',
+        'HOST': 'ec2-54-92-174-171.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }

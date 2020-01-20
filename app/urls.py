@@ -16,8 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# docs import
+from rest_framework.documentation import include_docs_urls
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('user.urls')),
-    path('api/section/', include('section.urls'))
+    path('api/section/', include('section.urls')),
+    path('docs/', include_docs_urls(title='Great Soft Uz'))
 ]

@@ -9,7 +9,8 @@ from section.serializers import ServiceSerializer
 
 class ServiceViewSet(viewsets.GenericViewSet,
                      mixins.ListModelMixin,
-                     mixins.CreateModelMixin):
+                     mixins.CreateModelMixin,
+                     mixins.UpdateModelMixin):
     """Manage services in database"""
     authentication_classes = (JSONWebTokenAuthentication, )
     permission_classes = (AllowAny, )
@@ -19,7 +20,10 @@ class ServiceViewSet(viewsets.GenericViewSet,
     def perform_create(self, serializer):
         """Creates a new service"""
         serializer.save(user=self.request.user)
-    
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+
     def get_permissions(self):
         if self.request.method == 'GET':
             return (AllowAny(), )
